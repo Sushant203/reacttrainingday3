@@ -1,20 +1,31 @@
-import React from 'react'
-import Navbar from './Navbar'
-import {BrowserRouter,Routes,Route} from "react-router-dom"
-import Hero from './Hero'
-import Skill from './Skill'
-import ProductList from './components/ProductList'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+
 const App = () => {
+  //useState declare
+  const [product,setProduct] = useState([]);
+
+
+  const fetchData = async()=>{
+       const response = await axios.get("https://fakestoreapi.com/products");
+       setProduct(response.data);
+  }
+    useEffect(()=>{
+      fetchData();
+    },[])
   return (
     <div>
-      <BrowserRouter>
-      <Navbar/>
-      <Routes>
-        <Route path='/' element={<ProductList/>}/>
-        <Route path='/skills' element={<Skill/>}/>
-      </Routes>
-      </BrowserRouter>
-      
+      {
+        product.map((value,index)=>{
+            return (
+                <div>
+                  <p>{value.price}</p>
+                  <p>{value.title}</p>
+                 <img src={value.image} alt="" />
+                </div>
+            )
+        })
+      }
     </div>
   )
 }

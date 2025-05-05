@@ -17,7 +17,7 @@ useEffect(()=>{
 
   return (
     <div className='grid grid-cols-3 gap-5 justify-items-center mt-20'>
-{products.map((val,i)=>{
+{products.map((val,i)=>{    
     return(
         <div key={i}>
             <ProductCard title={val.title} image={val.image} price={val.price}/>
